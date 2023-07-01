@@ -5,19 +5,25 @@ import axios from "axios";
 import { fetchAllUser } from "../services/UserService";
 import ModalAddNew from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUSer";
+import ModalConfirm from "./ModalConfirm";
 import _ from "lodash";
 
 const TableUsers = (props) => {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
-  const handleClose = () => {
-    setIsShowModalAddNew(false);
-    setIsShowModalEdit(false);
-  };
+
   const [listUsers, setListUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
   const [isShowModalEdit, setIsShowModalEdit] = useState(false);
+  const [isShowModalDelete, setIsShowModalDelete] = useState(false);
   const [dataUserEdit, setDataUserEdit] = useState({});
+  const [dataUserDelete, setDataUserDelete] = useState({});
+
+  const handleClose = () => {
+    setIsShowModalAddNew(false);
+    setIsShowModalEdit(false);
+    setIsShowModalDelete(false);
+  };
 
   const handleUpdateTable = (user) => {
     setListUsers([user, ...listUsers]);
@@ -38,6 +44,12 @@ const TableUsers = (props) => {
   const handleEditUser = (user) => {
     setIsShowModalEdit(true);
     setDataUserEdit(user);
+  };
+
+  const handleDeleteUser = (user) => {
+    setIsShowModalDelete(true);
+    setDataUserDelete(user);
+    console.log(user);
   };
 
   const getUsers = async (page) => {
@@ -92,7 +104,12 @@ const TableUsers = (props) => {
                     >
                       Edit
                     </button>
-                    <button className="btn btn-danger">Delete</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteUser(item)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
@@ -129,6 +146,12 @@ const TableUsers = (props) => {
         dataUserEdit={dataUserEdit}
         handleUpdateTable={handleUpdateTable}
         handleEditUserFromModal={handleEditUserFromModal}
+      />
+      <ModalConfirm
+        show={isShowModalDelete}
+        handleClose={handleClose}
+        handleDeleteUser={handleDeleteUser}
+        dataUserDelete={dataUserDelete}
       />
     </>
   );
