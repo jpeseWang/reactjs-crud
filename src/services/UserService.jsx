@@ -5,7 +5,9 @@ const fetchAllUser = (page) => {
 };
 
 const postCreateUser = (name, job) => {
-  return axios.post("/api/users", { name: name, job: job }, { timeout: 3000 });
+  return axios.post("/api/users", { name: name, job: job }, { timeout: 5000 });
 };
-
-export { fetchAllUser, postCreateUser };
+const putUpdateUser = (name, job) => {
+  return axios.put("/api/users/2", { name: name, job: job }, { timeout: 6000 });
+};
+export { fetchAllUser, postCreateUser, putUpdateUser };
