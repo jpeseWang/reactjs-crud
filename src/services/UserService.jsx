@@ -10,4 +10,7 @@ const postCreateUser = (name, job) => {
 const putUpdateUser = (name, job) => {
   return axios.put("/api/users/2", { name: name, job: job }, { timeout: 6000 });
 };
-export { fetchAllUser, postCreateUser, putUpdateUser };
+const deleteUser = (id) => {
+  return axios.delete(`/api/users/${id}`, { timeout: 6000 });
+};
+export { fetchAllUser, postCreateUser, putUpdateUser, deleteUser };

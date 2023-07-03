@@ -49,7 +49,14 @@ const TableUsers = (props) => {
   const handleDeleteUser = (user) => {
     setIsShowModalDelete(true);
     setDataUserDelete(user);
-    console.log(user);
+    // console.log(user);
+  };
+
+  const handleDeleteUserFromModal = (user) => {
+    let cloneListUsers = _.cloneDeep(listUsers);
+    cloneListUsers = cloneListUsers.filter((item) => item.id !== user.id);
+
+    setListUsers(cloneListUsers);
   };
 
   const getUsers = async (page) => {
@@ -152,6 +159,7 @@ const TableUsers = (props) => {
         handleClose={handleClose}
         handleDeleteUser={handleDeleteUser}
         dataUserDelete={dataUserDelete}
+        handleDeleteUserFromModal={handleDeleteUserFromModal}
       />
     </>
   );
