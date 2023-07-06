@@ -7,6 +7,7 @@ import ModalAddNew from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUSer";
 import ModalConfirm from "./ModalConfirm";
 import _ from "lodash";
+import "../components/TableUser.scss";
 
 const TableUsers = (props) => {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
@@ -18,7 +19,13 @@ const TableUsers = (props) => {
   const [isShowModalDelete, setIsShowModalDelete] = useState(false);
   const [dataUserEdit, setDataUserEdit] = useState({});
   const [dataUserDelete, setDataUserDelete] = useState({});
+  const [sortBy, setSortBy] = useState("asc");
+  const [sortField, setSortField] = useState("id");
 
+  useEffect(() => {
+    //call API
+    getUsers();
+  }, []);
   const handleClose = () => {
     setIsShowModalAddNew(false);
     setIsShowModalEdit(false);
@@ -36,11 +43,6 @@ const TableUsers = (props) => {
     setListUsers(cloneListUsers);
   };
 
-  useEffect(() => {
-    //call API
-    getUsers();
-  }, []);
-
   const handleEditUser = (user) => {
     setIsShowModalEdit(true);
     setDataUserEdit(user);
@@ -49,7 +51,6 @@ const TableUsers = (props) => {
   const handleDeleteUser = (user) => {
     setIsShowModalDelete(true);
     setDataUserDelete(user);
-    // console.log(user);
   };
 
   const handleDeleteUserFromModal = (user) => {
@@ -70,6 +71,15 @@ const TableUsers = (props) => {
   const handlePageClick = (e) => {
     getUsers(+e.selected + 1);
   };
+  const handleSort = (sortBy, sortField) => {
+    setSortBy(sortBy);
+    setSortField(sortField);
+    let cloneListUsers = _.cloneDeep(listUsers);
+    cloneListUsers = _.orderBy(cloneListUsers, [sortField], [sortBy]);
+    setListUsers(cloneListUsers);
+  };
+
+  console.log("Check sort", sortBy, sortField);
 
   return (
     <>
@@ -87,11 +97,119 @@ const TableUsers = (props) => {
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Action</th>
+            <th style={{ display: "flex" }} className="sort-header">
+              ID
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("desc", "id");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("asc", "id");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                />
+              </svg>
+            </th>
+            <th className="sort-header">
+              Email
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("desc", "email");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("asc", "email");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                />
+              </svg>
+            </th>
+            <th className="sort-header">
+              First Name
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("desc", "first_name");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                style={{ width: "20px" }}
+                onClick={() => {
+                  handleSort("asc", "first_name");
+                }}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                />
+              </svg>
+            </th>
+            <th className="sort-header">Last Name</th>
+            <th className="sort-header">Action</th>
           </tr>
         </thead>
         <tbody>

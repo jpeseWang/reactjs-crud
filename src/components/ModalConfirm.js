@@ -14,7 +14,6 @@ function ModalConfirm(props) {
     } else {
       toast.error("Error deleting user");
     }
-    console.log("Check delete: ", res);
   };
   return (
     <>

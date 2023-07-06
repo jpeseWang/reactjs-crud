@@ -9,7 +9,7 @@ export default instance;
 instance.interceptors.response.use(
   function (response) {
     // Do something with response data
-    console.log(response);
+
     return response.data ? response.data : { statusCode: response.status };
   },
   function (error) {
