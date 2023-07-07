@@ -6,12 +6,11 @@ import { fetchAllUser } from "../services/UserService";
 import ModalAddNew from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUSer";
 import ModalConfirm from "./ModalConfirm";
-import _ from "lodash";
+import _, { debounce } from "lodash";
 import "../components/TableUser.scss";
 
 const TableUsers = (props) => {
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
-
   const [listUsers, setListUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
@@ -21,6 +20,7 @@ const TableUsers = (props) => {
   const [dataUserDelete, setDataUserDelete] = useState({});
   const [sortBy, setSortBy] = useState("asc");
   const [sortField, setSortField] = useState("id");
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     //call API
@@ -79,7 +79,20 @@ const TableUsers = (props) => {
     setListUsers(cloneListUsers);
   };
 
-  console.log("Check sort", sortBy, sortField);
+  const handleSearch = debounce((e) => {
+    let term = e.target.value;
+    console.log("check log", term);
+    if (term) {
+      let cloneListUsers = _.cloneDeep(listUsers);
+      cloneListUsers = cloneListUsers.filter((item) =>
+        item.email.includes(term)
+      );
+
+      setListUsers(cloneListUsers);
+    } else {
+      getUsers(1);
+    }
+  }, 300);
 
   return (
     <>
@@ -93,6 +106,16 @@ const TableUsers = (props) => {
         >
           Add new user
         </button>
+      </div>
+      <div className="col-4 my-3">
+        <input
+          // value={keyword}
+          onChange={(e) => {
+            handleSearch(e);
+          }}
+          className="form-control"
+          placeholder="Search here"
+        />
       </div>
       <Table striped bordered hover size="sm">
         <thead>
