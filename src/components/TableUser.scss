@@ -4,3 +4,14 @@
 svg {
   cursor: pointer;
 }
+
+.add-new {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .group-btns {
+    display: flex;
+    gap: 10px;
+  }
+}
