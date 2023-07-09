@@ -22,6 +22,7 @@ const TableUsers = (props) => {
   const [sortBy, setSortBy] = useState("asc");
   const [sortField, setSortField] = useState("id");
   const [keyword, setKeyword] = useState("");
+  const [dataExport, setDataExport] = useState([]);
 
   useEffect(() => {
     //call API
@@ -95,12 +96,22 @@ const TableUsers = (props) => {
     }
   }, 300);
 
-  const csvData = [
-    ["firstname", "lastname", "email"],
-    ["Ahmed", "Tomi", "ah@smthing.co.com"],
-    ["Raed", "Labes", "rl@smthing.co.com"],
-    ["Yezzi", "Min l3b", "ymin@cocococo.com"],
-  ];
+  const getUsersExport = (e, done) => {
+    let res = [];
+    if (listUsers && listUsers.length > 0) {
+      res.push(["Id", "Email", "First Name", "Last Name"]);
+      listUsers.map((item, index) => {
+        let arr = [];
+        arr[0] = item.id;
+        arr[1] = item.email;
+        arr[2] = item.first_name;
+        arr[3] = item.last_name;
+        res.push(arr);
+      });
+      setDataExport(res);
+      done();
+    }
+  };
 
   return (
     <>
@@ -118,7 +129,9 @@ const TableUsers = (props) => {
           <CSVLink
             filename={"users.csv"}
             className="btn btn-primary mx-2"
-            data={csvData}
+            data={dataExport}
+            asyncOnClick={true}
+            onClick={getUsersExport}
           >
             <i class="fa-solid fa-file-arrow-down"></i> Export
           </CSVLink>
