@@ -1,2 +1,67 @@
 .app-container {
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  .title {
+    margin: 10px auto;
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 60px;
+  }
+  .text {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 5px;
+    outline: none;
+    margin-bottom: 5px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    padding-inline-end: unset;
+    border-radius: 3px;
+    width: 100%;
+    &:focus {
+      background-color: rgba(22, 24, 35, 0.06);
+      border: 1px solid rgba(22, 24, 35, 0.12);
+    }
+    &::placeholder {
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+  .input-pw {
+    position: relative;
+    .fa-eye-slash {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+  button {
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    margin-top: 19px;
+    font-weight: 600;
+    &:hover {
+      color: white;
+      background-color: rgba(254, 44, 85, 1);
+    }
+  }
+  button[disabled="disabled"],
+  button:disabled {
+    cursor: not-allowed;
+  }
+  .back {
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: underline;
+    font-weight: 700;
+    cursor: pointer;
+  }
 }
