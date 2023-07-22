@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { postCreateUser, putUpdateUser } from "../services/UserService";
+import { putUpdateUser } from "../services/UserService";
 
 function ModalEditUser(props) {
   const { show, handleClose, dataUserEdit, handleEditUserFromModal } = props;

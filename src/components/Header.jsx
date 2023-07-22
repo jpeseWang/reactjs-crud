@@ -2,10 +2,17 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../assets/images/DALL·E 2023-07-18 10.00.12 - create logo for technologu page.png";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { NavLink } from "react-bootstrap";
+import { toast } from "react-toastify";
 const Header = (props) => {
+  const nav = useNavigate();
   const location = useLocation();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    nav("/");
+    toast.success("Logout successfully!");
+  };
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -26,8 +33,13 @@ const Header = (props) => {
           <Nav>
             {" "}
             <NavDropdown title="Setting" id="basic-nav-dropdown" className>
-              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+              <Link to="/login" className="dropdown-item">
+                Login
+              </Link>
+              <NavDropdown.Item onClick={() => handleLogout()}>
+                Logout
+              </NavDropdown.Item>
+
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
