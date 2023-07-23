@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+
 function Login() {
+  const { loginContext } = useContext(UserContext);
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +27,7 @@ function Login() {
     setLoadingSpin(true);
     let res = await loginApi(email, password);
     if (res && res.token) {
-      localStorage.setItem("token", res.token);
+      loginContext(email, res.token);
       nav("/");
     } else {
       if (res && res.status === 400) {
@@ -32,6 +35,9 @@ function Login() {
       }
     }
     setLoadingSpin(false);
+  };
+  const handleBack = () => {
+    nav("/");
   };
   return (
     <div className="login-container col-6 col-sm-6">
@@ -73,7 +79,8 @@ function Login() {
         &nbsp;Login
       </button>
       <div className="back">
-        <i className="fa-solid fa-chevron-left"></i> Go back
+        <i className="fa-solid fa-chevron-left"></i>
+        <span onClick={() => handleBack()}>Go back</span>
       </div>
     </div>
   );
