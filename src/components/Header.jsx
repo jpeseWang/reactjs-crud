@@ -16,7 +16,7 @@ const Header = (props) => {
   const handleLogout = () => {
     logout();
     nav("/");
-    toast.success("Logout successfully!");
+    toast.info("Logout successfully!");
   };
   // useEffect(() => {
   //   if (window.location.pathname === "/login") {

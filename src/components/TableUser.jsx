@@ -162,11 +162,11 @@ const TableUsers = (props) => {
 
   return (
     <>
-      <div className="my-3 add-new">
+      <div className="my-3 add-new d-sm-flex">
         <span className="">
           <b>List Users:</b>
         </span>
-        <div className="group-btns">
+        <div className="group-btns mt-sm-0 mt-2">
           <input
             id="test"
             type="file"
@@ -197,7 +197,7 @@ const TableUsers = (props) => {
           </button>
         </div>
       </div>
-      <div className="col-4 my-3">
+      <div className="col-12 my-3 col-sm-4">
         <input
           // value={keyword}
           onChange={(e) => {
@@ -207,153 +207,155 @@ const TableUsers = (props) => {
           placeholder="Search here"
         />
       </div>
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th style={{ display: "flex" }} className="sort-header">
-              ID
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("desc", "id");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("asc", "id");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
-                />
-              </svg>
-            </th>
-            <th className="sort-header">
-              Email
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("desc", "email");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("asc", "email");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
-                />
-              </svg>
-            </th>
-            <th className="sort-header">
-              First Name
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("desc", "first_name");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                style={{ width: "20px" }}
-                onClick={() => {
-                  handleSort("asc", "first_name");
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
-                />
-              </svg>
-            </th>
-            <th className="sort-header">Last Name</th>
-            <th className="sort-header">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listUsers &&
-            listUsers.length > 0 &&
-            listUsers.map((item, index) => {
-              return (
-                <tr key={`users-${index}`}>
-                  <td>{item.id}</td>
-                  <td>{item.email}</td>
-                  <td>{item.first_name}</td>
-                  <td>{item.last_name}</td>
-                  <td>
-                    <button
-                      className="btn btn-warning mx-3"
-                      onClick={() => handleEditUser(item)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeleteUser(item)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table>
+      <div className="customize-table">
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th style={{ display: "flex" }} className="sort-header">
+                ID
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("desc", "id");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("asc", "id");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                  />
+                </svg>
+              </th>
+              <th className="sort-header">
+                Email
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("desc", "email");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("asc", "email");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                  />
+                </svg>
+              </th>
+              <th className="sort-header">
+                First Name
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("desc", "first_name");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  style={{ width: "20px" }}
+                  onClick={() => {
+                    handleSort("asc", "first_name");
+                  }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"
+                  />
+                </svg>
+              </th>
+              <th className="sort-header">Last Name</th>
+              <th className="sort-header">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listUsers &&
+              listUsers.length > 0 &&
+              listUsers.map((item, index) => {
+                return (
+                  <tr key={`users-${index}`}>
+                    <td>{item.id}</td>
+                    <td>{item.email}</td>
+                    <td>{item.first_name}</td>
+                    <td>{item.last_name}</td>
+                    <td>
+                      <button
+                        className="btn btn-warning mx-3"
+                        onClick={() => handleEditUser(item)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger mt-sm-1"
+                        onClick={() => handleDeleteUser(item)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </Table>
+      </div>
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"

@@ -25,9 +25,10 @@ function Login() {
       return;
     }
     setLoadingSpin(true);
-    let res = await loginApi(email, password);
+    let res = await loginApi(email.trim(), password);
     if (res && res.token) {
       loginContext(email, res.token);
+      toast.success("Login successful!");
       nav("/");
     } else {
       if (res && res.status === 400) {
@@ -36,8 +37,14 @@ function Login() {
     }
     setLoadingSpin(false);
   };
+
   const handleBack = () => {
     nav("/");
+  };
+  const handlePressEnter = (e) => {
+    if (e && e.key === "Enter") {
+      handleLogin();
+    }
   };
   return (
     <div className="login-container col-6 col-sm-6">
@@ -59,6 +66,7 @@ function Login() {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          onKeyDown={(e) => handlePressEnter(e)}
         />
         <i
           onClick={() => setIsShowPassword(!isShowPassword)}
