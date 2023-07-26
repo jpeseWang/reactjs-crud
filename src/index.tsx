@@ -7,17 +7,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <UserProvider>
-    <BrowserRouter>
-      <React.StrictMode>
+  <Provider store={store}>
+    <UserProvider>
+      <BrowserRouter>
         <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </UserProvider>
+      </BrowserRouter>
+    </UserProvider>
+  </Provider>
 );
 
 reportWebVitals();
