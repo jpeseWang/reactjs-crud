@@ -1,16 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { handleLoginRedux } from "../redux/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
-  const { loginContext } = useContext(UserContext);
+  const dispatch = useDispatch();
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [loadingSpin, setLoadingSpin] = useState(false);
+
+  const isLoading = useSelector((state) => state.user.isLoading);
+  const account = useSelector((state) => state.user.account);
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -24,18 +26,8 @@ function Login() {
       toast.error("Missing email or password!");
       return;
     }
-    setLoadingSpin(true);
-    let res = await loginApi(email.trim(), password);
-    if (res && res.token) {
-      loginContext(email, res.token);
-      toast.success("Login successful!");
-      nav("/");
-    } else {
-      if (res && res.status === 400) {
-        toast.error(res.data.error);
-      }
-    }
-    setLoadingSpin(false);
+
+    dispatch(handleLoginRedux(email, password));
   };
 
   const handleBack = () => {
@@ -46,6 +38,13 @@ function Login() {
       handleLogin();
     }
   };
+
+  useEffect(() => {
+    if (account && account.auth === true) {
+      nav("/");
+    }
+  }, [account]);
+
   return (
     <div className="login-container col-6 col-sm-6">
       <div className="title">Log in</div>
@@ -83,7 +82,7 @@ function Login() {
         disabled={email && password ? false : true}
         onClick={() => handleLogin()}
       >
-        {loadingSpin && <i className="fas fa-circle-notch fa-spin"></i>}
+        {isLoading && <i className="fas fa-circle-notch fa-spin"></i>}
         &nbsp;Login
       </button>
       <div className="back">

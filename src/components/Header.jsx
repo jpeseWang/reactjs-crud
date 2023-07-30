@@ -4,25 +4,27 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../assets/images/DALL·E 2023-07-18 10.00.12 - create logo for technologu page.png";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { NavLink } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { handleLogoutRedux } from "../redux/actions/userAction";
 import { toast } from "react-toastify";
-import { UserContext } from "../context/UserContext";
 
 const Header = (props) => {
-  const { logout, user } = useContext(UserContext);
-  const [hideHeader, setHideHeader] = useState(false);
   const nav = useNavigate();
   const location = useLocation();
+  const user = useSelector((state) => state.user.account);
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    logout();
-    nav("/");
-    toast.info("Logout successfully!");
+    dispatch(handleLogoutRedux());
   };
-  // useEffect(() => {
-  //   if (window.location.pathname === "/login") {
-  //     setHideHeader(true);
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (user && user.auth === false && window.location.pathname !== "/login") {
+      nav("/");
+      toast.success("Log out successfully!");
+    }
+  }, [user]);
+
   return (
     <div>
       <Navbar expand="lg" className="bg-body-tertiary">
