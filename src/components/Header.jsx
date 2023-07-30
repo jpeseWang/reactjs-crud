@@ -10,7 +10,6 @@ import { UserContext } from "../context/UserContext";
 
 const Header = (props) => {
   const { logout, user } = useContext(UserContext);
-  const [hideHeader, setHideHeader] = useState(false);
   const nav = useNavigate();
   const location = useLocation();
   const handleLogout = () => {
